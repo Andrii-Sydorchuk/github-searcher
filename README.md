@@ -1,36 +1,11 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GitHub Searcher
 
-## Getting Started
+This project is a single-page GitHub repository and user search application built with Next.js, React, and TypeScript.
 
-First, run the development server:
+## Solution and Technical Decisions
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The application provides a responsive search interface styled entirely with Vanilla CSS Modules, complying with the requirement to avoid CSS frameworks while keeping styles modular and scoped. A custom debounce hook delays execution by 350ms, ensuring queries only run after the user pauses typing and enters at least three characters.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To prevent unauthenticated GitHub API rate limits (10 requests per minute) and provide consistent evaluation, search queries run against a realistic mock dataset with a simulated 300ms network delay to demonstrate loading skeletons and asynchronous transitions. Results are cached in memory using entity and query keys, returning instant responses for previously searched terms.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The search bar remains anchored at the top-left of the page to eliminate layout shift while typing. Clearing the input resets the interface immediately to prevent brief flashes of empty state messages, and runtime type checks in the results grid safely handle switching between users and repositories without component errors.
