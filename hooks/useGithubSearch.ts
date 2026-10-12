@@ -10,8 +10,10 @@ export function useGithubSearch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const debouncedQuery = useDebounce(searchTerm, 350);
-  const hasSearched = debouncedQuery.length >= 3;
+  const debouncedQuery = useDebounce(searchTerm.trim(), 350);
+
+  const isInputValid = searchTerm.trim().length >= 3;
+  const hasSearched = isInputValid && debouncedQuery.length >= 3;
 
   useEffect(() => {
     if (!hasSearched) {
@@ -48,6 +50,11 @@ export function useGithubSearch() {
 
   const results = hasSearched ? searchResults : [];
 
+  const handleEntityTypeChange = (type: EntityType) => {
+    setEntityType(type);
+    setSearchResults([]);
+  };
+
   const clearSearch = () => {
     setSearchTerm("");
     setSearchResults([]);
@@ -59,10 +66,10 @@ export function useGithubSearch() {
     searchTerm,
     setSearchTerm,
     entityType,
-    setEntityType,
+    setEntityType: handleEntityTypeChange,
     results,
-    loading: hasSearched && loading,
-    error: hasSearched ? error : null,
+    loading: isInputValid && loading,
+    error: isInputValid ? error : null,
     hasSearched,
     clearSearch,
   };
