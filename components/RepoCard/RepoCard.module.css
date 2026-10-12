@@ -1,0 +1,107 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.ownerRow {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.ownerAvatar {
+  border-radius: 9999px;
+  border: 1px solid #d3d3d3;
+}
+
+.ownerName {
+  font-size: .85rem;
+  color: #656d76;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.repoTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0969da;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.repoLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.repoLink:hover {
+  text-decoration: underline;
+}
+
+.description {
+  font-size: .9rem;
+  color: #656d76;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bottomSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid #f0f2f5;
+  font-size: 0.8rem;
+  color: #656d76;
+  flex-wrap: wrap;
+}
+
+.statsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.icon {
+  display: inline-block;
+  color: #8c959f;
+}
+
+.languageBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.languageDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #0969da;
+}
+
