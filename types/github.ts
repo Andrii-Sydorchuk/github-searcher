@@ -10,29 +10,18 @@ export interface RepoOwner {
 export interface Repository {
   id: number;
   name: string;
-  full_name: string;
+  html_url: string;
   owner: RepoOwner;
   description: string | null;
-  html_url: string;
-  stargazers_count: number;
-  forks_count: number;
-  open_issues_count: number;
-  language: string | null;
-  updated_at: string;
 }
 
 export interface GitHubUser {
   id: number;
-  login: string;
-  name: string | null;
   avatar_url: string;
+  login: string;
   html_url: string;
+  name: string | null;
   bio: string | null;
-  location: string | null;
-  public_repos: number;
-  followers: number;
-  following: number;
-  company: string | null;
 }
 
 export interface SearchRequestBody {
