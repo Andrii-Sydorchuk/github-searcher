@@ -67,17 +67,3 @@
   width: 60%;
   height: 12px;
 }
-
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 0.75rem;
-  border-top: 1px solid #f6f8fa;
-}
-
-.footerStat {
-  width: 60px;
-  height: 12px;
-}
-
