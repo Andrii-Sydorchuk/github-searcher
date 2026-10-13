@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1f2328;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #656d76;
+}

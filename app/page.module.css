@@ -15,22 +15,6 @@
   gap: 2rem;
 }
 
-.resultsSection {
-  width: 100%;
-  animation: fadeIn 0.25s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 768px) {
   .page {
     padding: 2rem 1rem 3rem 1rem;
