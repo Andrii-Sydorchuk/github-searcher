@@ -1,4 +1,4 @@
-import { EntityType } from "@/src/types/github";
+import { EntityType } from "@/types/github";
 import styles from "./EntitySelect.module.css";
 
 export interface EntitySelectProps {
