@@ -1,4 +1,5 @@
-import { GitHubUser, Repository } from "@/types/github";
+import { Repository } from "@/types/repository";
+import { GitHubUser } from "@/types/user";
 
 export const MOCK_REPOSITORIES: Repository[] = [
   {
@@ -35,7 +36,8 @@ export const MOCK_REPOSITORIES: Repository[] = [
       avatar_url: "https://avatars.githubusercontent.com/u/6128107?v=4",
       html_url: "https://github.com/vuejs",
     },
-    description: "This is the repo for Vue 2. For Vue 3, go to https://github.com/vuejs/core",
+    description:
+      "This is the repo for Vue 2. For Vue 3, go to https://github.com/vuejs/core",
   },
   {
     id: 24195339,
@@ -83,7 +85,8 @@ export const MOCK_REPOSITORIES: Repository[] = [
       avatar_url: "https://avatars.githubusercontent.com/u/1529926?v=4",
       html_url: "https://github.com/redis",
     },
-    description: "Redis is an in-memory database that persists on disk. The data model is key-value.",
+    description:
+      "Redis is an in-memory database that persists on disk. The data model is key-value.",
   },
   {
     id: 20929026,
@@ -95,7 +98,8 @@ export const MOCK_REPOSITORIES: Repository[] = [
       avatar_url: "https://avatars.githubusercontent.com/u/5430905?v=4",
       html_url: "https://github.com/rust-lang",
     },
-    description: "Empowering everyone to build reliable and efficient software.",
+    description:
+      "Empowering everyone to build reliable and efficient software.",
   },
   {
     id: 20872870,
@@ -107,7 +111,8 @@ export const MOCK_REPOSITORIES: Repository[] = [
       avatar_url: "https://avatars.githubusercontent.com/u/6154722?v=4",
       html_url: "https://github.com/microsoft",
     },
-    description: "TypeScript is a superset of JavaScript that compiles to clean JavaScript output.",
+    description:
+      "TypeScript is a superset of JavaScript that compiles to clean JavaScript output.",
   },
   {
     id: 130884470,
@@ -143,7 +148,8 @@ export const MOCK_REPOSITORIES: Repository[] = [
       avatar_url: "https://avatars.githubusercontent.com/u/9950313?v=4",
       html_url: "https://github.com/nodejs",
     },
-    description: "Node.js JavaScript runtime :sparkles::turtle::rocket::sparkles:",
+    description:
+      "Node.js JavaScript runtime :sparkles::turtle::rocket::sparkles:",
   },
   {
     id: 8514,
@@ -155,7 +161,8 @@ export const MOCK_REPOSITORIES: Repository[] = [
       avatar_url: "https://avatars.githubusercontent.com/u/4223?v=4",
       html_url: "https://github.com/rails",
     },
-    description: "Ruby on Rails is a full-stack framework for developing database-backed web applications.",
+    description:
+      "Ruby on Rails is a full-stack framework for developing database-backed web applications.",
   },
   {
     id: 48833918,
@@ -179,7 +186,8 @@ export const MOCK_REPOSITORIES: Repository[] = [
       avatar_url: "https://avatars.githubusercontent.com/u/9892522?v=4",
       html_url: "https://github.com/freeCodeCamp",
     },
-    description: "freeCodeCamp.org's open-source codebase and curriculum. Learn to code for free.",
+    description:
+      "freeCodeCamp.org's open-source codebase and curriculum. Learn to code for free.",
   },
   {
     id: 7525270,
@@ -191,7 +199,8 @@ export const MOCK_REPOSITORIES: Repository[] = [
       avatar_url: "https://avatars.githubusercontent.com/u/13409222?v=4",
       html_url: "https://github.com/electron",
     },
-    description: "Build cross-platform desktop apps with JavaScript, HTML, and CSS.",
+    description:
+      "Build cross-platform desktop apps with JavaScript, HTML, and CSS.",
   },
 ];
 

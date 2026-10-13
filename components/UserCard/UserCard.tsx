@@ -1,11 +1,10 @@
 import Image from "next/image";
-import { GitHubUser } from "@/types/github";
 import styles from "./UserCard.module.css";
+import { GitHubUser } from "@/types/user";
 
 interface UserCardProps {
   user: GitHubUser;
 }
-
 
 export default function UserCard({ user }: UserCardProps) {
   return (
@@ -39,4 +38,3 @@ export default function UserCard({ user }: UserCardProps) {
     </article>
   );
 }
-

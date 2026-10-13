@@ -1,28 +1,7 @@
+import { Repository } from "./repository";
+import { GitHubUser } from "./user";
+
 export type EntityType = "users" | "repositories";
-
-export interface RepoOwner {
-  id: number;
-  login: string;
-  avatar_url: string;
-  html_url: string;
-}
-
-export interface Repository {
-  id: number;
-  name: string;
-  html_url: string;
-  owner: RepoOwner;
-  description: string | null;
-}
-
-export interface GitHubUser {
-  id: number;
-  avatar_url: string;
-  login: string;
-  html_url: string;
-  name: string | null;
-  bio: string | null;
-}
 
 export interface SearchRequestBody {
   type: EntityType;
@@ -34,4 +13,3 @@ export interface SearchResponse<T = Repository | GitHubUser> {
   items: T[];
   cached?: boolean;
 }
-

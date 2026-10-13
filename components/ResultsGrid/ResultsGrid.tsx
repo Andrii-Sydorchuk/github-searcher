@@ -1,8 +1,10 @@
-import { EntityType, GitHubUser, Repository } from "@/types/github";
+import { EntityType } from "@/types/github";
 import RepoCard from "../RepoCard/RepoCard";
 import UserCard from "../UserCard/UserCard";
 import SkeletonCard from "../SkeletonCard/SkeletonCard";
 import styles from "./ResultsGrid.module.css";
+import { Repository } from "@/types/repository";
+import { GitHubUser } from "@/types/user";
 
 interface ResultsGridProps {
   items: (Repository | GitHubUser)[];

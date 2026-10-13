@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Repository } from "@/types/github";
 import styles from "./RepoCard.module.css";
+import { Repository } from "@/types/repository";
 
 interface RepoCardProps {
   repo: Repository;
@@ -40,4 +40,3 @@ export default function RepoCard({ repo }: RepoCardProps) {
     </article>
   );
 }
-

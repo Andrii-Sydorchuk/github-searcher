@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { searchEntities } from "@/services/searchService";
-import { EntityType, GitHubUser, Repository } from "@/types/github";
+import { EntityType } from "@/types/github";
+import { Repository } from "@/types/repository";
+import { GitHubUser } from "@/types/user";
 
 export function useGithubSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [entityType, setEntityType] = useState<EntityType>("users");
-  const [searchResults, setSearchResults] = useState<(Repository | GitHubUser)[]>([]);
+  const [searchResults, setSearchResults] = useState<
+    (Repository | GitHubUser)[]
+  >([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
