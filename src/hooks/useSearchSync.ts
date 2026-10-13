@@ -1,23 +1,39 @@
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { useDebounce } from "./useDebounce";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   clearSearch,
   fetchSearchResults,
 } from "@/lib/features/search/searchSlice";
+import debounce from "lodash.debounce";
+import { EntityType } from "@/types/github";
 
 export function useSearchSync() {
   const searchTerm = useAppSelector((state) => state.search.searchTerm);
   const entityType = useAppSelector((state) => state.search.entityType);
+
   const dispatch = useAppDispatch();
 
-  const debouncedQuery = useDebounce(searchTerm.trim(), 350);
+  const debouncedSearch = useMemo(() => {
+    return debounce((type: EntityType, query: string) => {
+      dispatch(fetchSearchResults({ entityType: type, query }));
+    }, 350);
+  }, [dispatch]);
 
   useEffect(() => {
-    if (debouncedQuery.length >= 3) {
-      dispatch(fetchSearchResults({ entityType, query: debouncedQuery }));
-    } else if (searchTerm.length === 0) {
-      dispatch(clearSearch());
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
+
+  useEffect(() => {
+    if (searchTerm.trim().length >= 3) {
+      debouncedSearch(entityType, searchTerm);
+    } else {
+      debouncedSearch.cancel();
+
+      if (searchTerm.trim().length === 0) {
+        dispatch(clearSearch());
+      }
     }
-  }, [debouncedQuery, entityType, dispatch, searchTerm]);
+  }, [searchTerm, entityType, dispatch, debouncedSearch]);
 }

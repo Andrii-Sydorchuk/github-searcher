@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useDebounce } from "./useDebounce";
 import { searchEntities } from "@/services/searchService";
 import { EntityType } from "@/types/github";
 import { Repository } from "@/types/repository";
@@ -14,10 +13,8 @@ export function useGithubSearch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const debouncedQuery = useDebounce(searchTerm.trim(), 350);
-
   const isInputValid = searchTerm.trim().length >= 3;
-  const hasSearched = isInputValid && debouncedQuery.length >= 3;
+  const hasSearched = isInputValid && searchTerm.length >= 3;
 
   useEffect(() => {
     if (!hasSearched) {
@@ -30,7 +27,7 @@ export function useGithubSearch() {
       setLoading(true);
       setError(null);
       try {
-        const data = await searchEntities(entityType, debouncedQuery);
+        const data = await searchEntities(entityType, searchTerm);
         if (isCurrent) {
           setSearchResults(data);
         }
@@ -50,7 +47,7 @@ export function useGithubSearch() {
     return () => {
       isCurrent = false;
     };
-  }, [debouncedQuery, entityType, hasSearched]);
+  }, [searchTerm, entityType, hasSearched]);
 
   const results = hasSearched ? searchResults : [];
 
