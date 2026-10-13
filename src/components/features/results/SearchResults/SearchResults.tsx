@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./SearchResults.module.css";
-import StatusMessage from "../StatusMessage/StatusMessage";
+import StatusMessage from "@/components/common/StatusMessage/StatusMessage";
 import ResultsGrid from "../ResultsGrid/ResultsGrid";
 import { useSearchContext } from "@/context/SearchContext";
 

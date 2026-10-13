@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
-import SearchBar from "@/components/SearchBar/SearchBar";
-import SearchResults from "@/components/SearchResults/SearchResults";
+import SearchResults from "@/components/features/results/SearchResults/SearchResults";
+import SearchBar from "@/components/features/search/SearchBar/SearchBar";
 import { SearchProvider } from "@/context/SearchContext";
 
 export default function Home() {

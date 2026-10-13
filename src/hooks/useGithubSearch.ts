@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useDebounce } from "./useDebounce";
 import { searchEntities } from "@/services/searchService";
 import { EntityType } from "@/types/github";
 import { Repository } from "@/types/repository";
