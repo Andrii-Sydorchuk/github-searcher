@@ -15,9 +15,9 @@ export default function SearchResults() {
   const results = useAppSelector((state) => state.search.results);
   const loading = useAppSelector((state) => state.search.loading);
   const error = useAppSelector((state) => state.search.error);
+  const hasSearched = useAppSelector((state) => state.search.hasSearched);
   const dispatch = useAppDispatch();
 
-  const hasSearched = searchTerm.trim().length >= 3;
   const showResults = hasSearched || loading || !!error;
 
   return (

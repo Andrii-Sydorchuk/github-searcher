@@ -40,6 +40,7 @@ export interface SearchState {
   loading: boolean;
   error: string | null;
   cache: Record<string, (Repository | GitHubUser)[]>;
+  hasSearched: boolean;
 }
 
 const initialState: SearchState = {
@@ -49,6 +50,7 @@ const initialState: SearchState = {
   loading: false,
   error: null,
   cache: {},
+  hasSearched: false,
 };
 
 const searchSlice = createSlice({
@@ -57,11 +59,13 @@ const searchSlice = createSlice({
   reducers: {
     setSearchTerm: (state, action: PayloadAction<string>) => {
       state.searchTerm = action.payload;
+      state.hasSearched = false;
     },
     setEntityType: (state, action: PayloadAction<EntityType>) => {
       state.entityType = action.payload;
       state.results = [];
       state.error = null;
+      state.hasSearched = false;
     },
     setCacheEntry: (
       state,
@@ -74,6 +78,7 @@ const searchSlice = createSlice({
       state.results = [];
       state.loading = false;
       state.error = null;
+      state.hasSearched = false;
     },
     clearCache: (state) => {
       state.cache = {};
@@ -89,6 +94,7 @@ const searchSlice = createSlice({
         state.loading = false;
         state.results = action.payload.data;
         state.cache[action.payload.key] = action.payload.data;
+        state.hasSearched = true;
       })
       .addCase(fetchSearchResults.rejected, (state, action) => {
         state.loading = false;
