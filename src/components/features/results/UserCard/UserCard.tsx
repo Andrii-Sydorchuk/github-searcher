@@ -49,20 +49,6 @@ export default function UserCard({ user }: UserCardProps) {
             <span className={styles.login}>@{user.login}</span>
           </div>
         </div>
-
-        {/* bio */}
-        {user.bio && <p className={styles.bio}>{user.bio}</p>}
-      </div>
-
-      <div className={styles.footerRow}>
-        <a
-          href={user.html_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.profileLink}
-        >
-          View Profile &rarr;
-        </a>
       </div>
     </article>
   );
