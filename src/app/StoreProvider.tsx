@@ -2,14 +2,23 @@
 
 import { useState } from "react";
 import { Provider } from "react-redux";
-import { makeStore, AppStore } from "@/lib/store";
+import { makeStore } from "@/lib/store";
+import { PersistGate } from "redux-persist/integration/react";
+
+type StoreWithPersistor = ReturnType<typeof makeStore>;
 
 export default function StoreProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [store] = useState<AppStore>(makeStore);
+  const [{ store, persistor }] = useState<StoreWithPersistor>(makeStore);
 
-  return <Provider store={store}>{children}</Provider>;
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {children}
+      </PersistGate>
+    </Provider>
+  );
 }
