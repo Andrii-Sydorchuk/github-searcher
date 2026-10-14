@@ -101,6 +101,11 @@ const searchSlice = createSlice({
         state.hasSearched = true;
       })
       .addCase(fetchSearchResults.rejected, (state, action) => {
+        if (action.meta.aborted) {
+          state.loading = false;
+          return;
+        }
+
         state.loading = false;
         state.error = action.payload || "Failed to fetch results";
       });
