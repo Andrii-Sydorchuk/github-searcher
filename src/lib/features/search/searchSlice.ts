@@ -4,6 +4,7 @@ import { Repository } from "@/types/repository";
 import { GitHubUser } from "@/types/user";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const fetchSearchResults = createAsyncThunk<
   { key: string; data: (Repository | GitHubUser)[] },
@@ -11,7 +12,7 @@ export const fetchSearchResults = createAsyncThunk<
   { state: { search: SearchState }; rejectValue: string }
 >(
   "search/fetchResults",
-  async ({ entityType, query }, { getState, rejectWithValue }) => {
+  async ({ entityType, query }, { getState, signal, rejectWithValue }) => {
     const normalizedQuery = query.trim().toLowerCase();
     const key = `${entityType}:${normalizedQuery}`;
     const state = getState();
@@ -21,9 +22,12 @@ export const fetchSearchResults = createAsyncThunk<
     }
 
     try {
-      const data = await searchEntities(entityType, normalizedQuery);
+      const data = await searchEntities(entityType, normalizedQuery, signal);
       return { key, data };
     } catch (error: unknown) {
+      if (axios.isCancel(error)) {
+        return rejectWithValue("Search cancelled");
+      }
       return rejectWithValue(
         error instanceof Error
           ? error.message

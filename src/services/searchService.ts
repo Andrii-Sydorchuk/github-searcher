@@ -1,32 +1,63 @@
-import { MOCK_REPOSITORIES, MOCK_USERS } from "@/data/mockData";
 import { EntityType } from "@/types/github";
 import { Repository } from "@/types/repository";
 import { GitHubUser } from "@/types/user";
+import { githubApi } from "./apiClient";
+import axios, { AxiosRequestConfig } from "axios";
 
-const cache: Record<string, (Repository | GitHubUser)[]> = {};
+export interface GitHubSearchApiResponse<T> {
+  total_count: number;
+  incomplete_results: boolean;
+  items: T[];
+}
 
-export async function searchEntities(type: EntityType, text: string) {
+interface SearchParams {
+  q: string;
+}
+
+export async function searchEntities(
+  type: EntityType,
+  text: string,
+  signal?: AbortSignal,
+): Promise<(Repository | GitHubUser)[]> {
   const query = text.trim().toLowerCase();
   if (query.length < 3) return [];
 
-  const key = `${type}:${query}`;
-  if (cache[key]) return cache[key];
+  const endpoint =
+    type === "repositories" ? "/search/repositories" : "/search/users";
+  const config: AxiosRequestConfig<unknown, SearchParams> = {
+    params: {
+      q: query,
+    },
+    signal,
+  };
 
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  try {
+    const response = await githubApi.get<
+      GitHubSearchApiResponse<Repository | GitHubUser>
+    >(endpoint, config);
 
-  const results =
-    type === "repositories"
-      ? MOCK_REPOSITORIES.filter(
-          (r) =>
-            r.name.toLowerCase().includes(query) ||
-            r.description?.toLowerCase().includes(query),
-        )
-      : MOCK_USERS.filter(
-          (u) =>
-            u.login.toLowerCase().includes(query) ||
-            u.name?.toLowerCase().includes(query),
+    return response.data.items;
+  } catch (error: unknown) {
+    if (axios.isCancel(error)) {
+      throw error;
+    }
+
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 403) {
+        throw new Error(
+          "GitHub API free unauthorized rate limit exceeded (10 requests / min). Please wait a moment and retry.",
         );
+      }
 
-  cache[key] = results;
-  return results;
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch from GitHub API",
+      );
+    }
+
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+
+    throw new Error("Unexpected error has occurred");
+  }
 }
