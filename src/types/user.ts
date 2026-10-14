@@ -3,6 +3,8 @@ export interface GitHubUser {
   avatar_url: string;
   login: string;
   html_url: string;
-  name: string | null;
-  bio: string | null;
+  name?: string | null;
+  bio?: string | null;
+  type?: "User" | "Organization" | string;
+  site_admin?: boolean;
 }

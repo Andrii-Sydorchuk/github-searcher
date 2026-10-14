@@ -11,4 +11,7 @@ export interface Repository {
   html_url: string;
   owner: RepoOwner;
   description: string | null;
+  stargazers_count?: number;
+  forks_count?: number;
+  language?: string | null;
 }

@@ -20,20 +20,49 @@ export default function UserCard({ user }: UserCardProps) {
             className={styles.avatar}
           />
           <div className={styles.userInfo}>
-            <a
-              href={user.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.name}
-            >
-              {user.name || user.login}
-            </a>
+            <div className={styles.nameRow}>
+              <a
+                href={user.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.name}
+              >
+                {user.name || user.login}
+              </a>
+              {user.type && (
+                <span
+                  className={`${styles.badge} ${
+                    user.type === "Organization"
+                      ? styles.orgBadge
+                      : styles.userBadge
+                  }`}
+                >
+                  {user.type}
+                </span>
+              )}
+              {user.site_admin && (
+                <span className={`${styles.badge} ${styles.adminBadge}`}>
+                  Staff
+                </span>
+              )}
+            </div>
             <span className={styles.login}>@{user.login}</span>
           </div>
         </div>
 
         {/* bio */}
         {user.bio && <p className={styles.bio}>{user.bio}</p>}
+      </div>
+
+      <div className={styles.footerRow}>
+        <a
+          href={user.html_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.profileLink}
+        >
+          View Profile &rarr;
+        </a>
       </div>
     </article>
   );
