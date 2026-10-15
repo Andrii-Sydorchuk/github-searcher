@@ -59,24 +59,29 @@ const initialState: SearchState = {
   currentRequestId: null,
 };
 
+function finishRequest(state: SearchState) {
+  state.loading = false;
+  state.currentRequestId = null;
+}
+
+function resetSearchStatus(state: SearchState) {
+  state.hasSearched = false;
+  state.error = null;
+  finishRequest(state);
+}
+
 const searchSlice = createSlice({
   name: "search",
   initialState,
   reducers: {
     setSearchTerm: (state, action: PayloadAction<string>) => {
       state.searchTerm = action.payload;
-      state.hasSearched = false;
-      state.loading = false;
-      state.error = null;
-      state.currentRequestId = null;
+      resetSearchStatus(state);
     },
     setEntityType: (state, action: PayloadAction<EntityType>) => {
       state.entityType = action.payload;
       state.results = [];
-      state.loading = false;
-      state.error = null;
-      state.hasSearched = false;
-      state.currentRequestId = null;
+      resetSearchStatus(state);
     },
     setCacheEntry: (
       state,
@@ -87,10 +92,7 @@ const searchSlice = createSlice({
     clearSearch: (state) => {
       state.searchTerm = "";
       state.results = [];
-      state.loading = false;
-      state.error = null;
-      state.hasSearched = false;
-      state.currentRequestId = null;
+      resetSearchStatus(state);
     },
     clearCache: (state) => {
       state.cache = {};
@@ -108,11 +110,10 @@ const searchSlice = createSlice({
           return;
         }
 
-        state.loading = false;
         state.results = action.payload.data;
         state.cache[action.payload.key] = action.payload.data;
         state.hasSearched = true;
-        state.currentRequestId = null;
+        finishRequest(state);
       })
       .addCase(fetchSearchResults.rejected, (state, action) => {
         if (state.currentRequestId !== action.meta.requestId) {
@@ -120,14 +121,12 @@ const searchSlice = createSlice({
         }
 
         if (action.meta.aborted) {
-          state.loading = false;
-          state.currentRequestId = null;
+          finishRequest(state);
           return;
         }
 
-        state.loading = false;
         state.error = action.payload || "Failed to fetch results";
-        state.currentRequestId = null;
+        finishRequest(state);
       });
   },
 });
