@@ -3,7 +3,12 @@
   flex-direction: column;
   gap: 1.25rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 760px;
+}
+
+.hint {
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
 }
 
 .inputGroup {
