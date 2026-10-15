@@ -1,13 +1,13 @@
 import { searchEntities } from "@/services/searchService";
 import { EntityType } from "@/types/github";
 import { Repository } from "@/types/repository";
-import { GitHubUser } from "@/types/user";
+import { User } from "@/types/user";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchSearchResults = createAsyncThunk<
-  { key: string; data: (Repository | GitHubUser)[] },
+  { key: string; data: (Repository | User)[] },
   { entityType: EntityType; query: string },
   { state: { search: SearchState }; rejectValue: string }
 >(
@@ -40,10 +40,10 @@ export const fetchSearchResults = createAsyncThunk<
 export interface SearchState {
   searchTerm: string;
   entityType: EntityType;
-  results: (Repository | GitHubUser)[];
+  results: (Repository | User)[];
   loading: boolean;
   error: string | null;
-  cache: Record<string, (Repository | GitHubUser)[]>;
+  cache: Record<string, (Repository | User)[]>;
   hasSearched: boolean;
   currentRequestId: string | null;
 }
@@ -85,7 +85,7 @@ const searchSlice = createSlice({
     },
     setCacheEntry: (
       state,
-      action: PayloadAction<{ key: string; data: (Repository | GitHubUser)[] }>,
+      action: PayloadAction<{ key: string; data: (Repository | User)[] }>,
     ) => {
       state.cache[action.payload.key] = action.payload.data;
     },

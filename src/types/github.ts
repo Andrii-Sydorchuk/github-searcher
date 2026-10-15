@@ -1,5 +1,5 @@
 import { Repository } from "./repository";
-import { GitHubUser } from "./user";
+import { User } from "./user";
 
 export type EntityType = "users" | "repositories";
 
@@ -8,7 +8,7 @@ export interface SearchRequestBody {
   text: string;
 }
 
-export interface SearchResponse<T = Repository | GitHubUser> {
+export interface SearchResponse<T = Repository | User> {
   total_count: number;
   items: T[];
   cached?: boolean;

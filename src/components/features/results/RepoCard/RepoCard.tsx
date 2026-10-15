@@ -15,14 +15,20 @@ export default function RepoCard({ repo }: RepoCardProps) {
       <div className={styles.topSection}>
         {/* owner */}
         <div className={styles.ownerRow}>
-          <Image
-            src={repo.owner.avatar_url}
-            alt={`${repo.owner.login} avatar`}
-            width={24}
-            height={24}
-            className={styles.ownerAvatar}
-          />
-          <span className={styles.ownerName}>{repo.owner.login}</span>
+          {repo.owner ? (
+            <>
+              <Image
+                src={repo.owner.avatar_url}
+                alt={`${repo.owner.login} avatar`}
+                width={24}
+                height={24}
+                className={styles.ownerAvatar}
+              />
+              <span className={styles.ownerName}>{repo.owner.login}</span>
+            </>
+          ) : (
+            <span className={styles.ownerName}>Unknown owner</span>
+          )}
         </div>
 
         {/* title */}

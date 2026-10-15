@@ -1,6 +1,6 @@
 import { EntityType } from "@/types/github";
 import { Repository } from "@/types/repository";
-import { GitHubUser } from "@/types/user";
+import { User } from "@/types/user";
 import { githubApi } from "./apiClient";
 import axios, { AxiosRequestConfig } from "axios";
 
@@ -18,7 +18,7 @@ export async function searchEntities(
   type: EntityType,
   text: string,
   signal?: AbortSignal,
-): Promise<(Repository | GitHubUser)[]> {
+): Promise<(Repository | User)[]> {
   const query = text.trim().toLowerCase();
   if (query.length < 3) return [];
 
@@ -33,7 +33,7 @@ export async function searchEntities(
 
   try {
     const response = await githubApi.get<
-      GitHubSearchApiResponse<Repository | GitHubUser>
+      GitHubSearchApiResponse<Repository | User>
     >(endpoint, config);
 
     return response.data.items;

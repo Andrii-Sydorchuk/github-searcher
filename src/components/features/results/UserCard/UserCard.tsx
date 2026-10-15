@@ -1,9 +1,9 @@
 import Image from "next/image";
 import styles from "./UserCard.module.css";
-import { GitHubUser } from "@/types/user";
+import { User } from "@/types/user";
 
 interface UserCardProps {
-  user: GitHubUser;
+  user: User;
 }
 
 export default function UserCard({ user }: UserCardProps) {

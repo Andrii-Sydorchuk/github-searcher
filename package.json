@@ -20,6 +20,7 @@
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {
+    "@octokit/types": "^18.0.0",
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^19",

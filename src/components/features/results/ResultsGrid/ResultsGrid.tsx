@@ -4,16 +4,16 @@ import UserCard from "../UserCard/UserCard";
 import SkeletonCard from "@/components/common/SkeletonCard/SkeletonCard";
 import styles from "./ResultsGrid.module.css";
 import { Repository } from "@/types/repository";
-import { GitHubUser } from "@/types/user";
+import { User } from "@/types/user";
 
 interface ResultsGridProps {
-  items: (Repository | GitHubUser)[];
+  items: (Repository | User)[];
   entityType: EntityType;
   loading: boolean;
   skeletonCount?: number;
 }
 
-function isRepository(item: Repository | GitHubUser): item is Repository {
+function isRepository(item: Repository | User): item is Repository {
   return "owner" in item;
 }
 
