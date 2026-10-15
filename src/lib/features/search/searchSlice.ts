@@ -45,6 +45,7 @@ export interface SearchState {
   error: string | null;
   cache: Record<string, (Repository | GitHubUser)[]>;
   hasSearched: boolean;
+  currentRequestId: string | null;
 }
 
 const initialState: SearchState = {
@@ -55,6 +56,7 @@ const initialState: SearchState = {
   error: null,
   cache: {},
   hasSearched: false,
+  currentRequestId: null,
 };
 
 const searchSlice = createSlice({
@@ -64,12 +66,17 @@ const searchSlice = createSlice({
     setSearchTerm: (state, action: PayloadAction<string>) => {
       state.searchTerm = action.payload;
       state.hasSearched = false;
+      state.loading = false;
+      state.error = null;
+      state.currentRequestId = null;
     },
     setEntityType: (state, action: PayloadAction<EntityType>) => {
       state.entityType = action.payload;
       state.results = [];
+      state.loading = false;
       state.error = null;
       state.hasSearched = false;
+      state.currentRequestId = null;
     },
     setCacheEntry: (
       state,
@@ -83,6 +90,7 @@ const searchSlice = createSlice({
       state.loading = false;
       state.error = null;
       state.hasSearched = false;
+      state.currentRequestId = null;
     },
     clearCache: (state) => {
       state.cache = {};
@@ -90,24 +98,36 @@ const searchSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSearchResults.pending, (state) => {
+      .addCase(fetchSearchResults.pending, (state, action) => {
         state.loading = true;
         state.error = null;
+        state.currentRequestId = action.meta.requestId;
       })
       .addCase(fetchSearchResults.fulfilled, (state, action) => {
+        if (state.currentRequestId !== action.meta.requestId) {
+          return;
+        }
+
         state.loading = false;
         state.results = action.payload.data;
         state.cache[action.payload.key] = action.payload.data;
         state.hasSearched = true;
+        state.currentRequestId = null;
       })
       .addCase(fetchSearchResults.rejected, (state, action) => {
+        if (state.currentRequestId !== action.meta.requestId) {
+          return;
+        }
+
         if (action.meta.aborted) {
           state.loading = false;
+          state.currentRequestId = null;
           return;
         }
 
         state.loading = false;
         state.error = action.payload || "Failed to fetch results";
+        state.currentRequestId = null;
       });
   },
 });
