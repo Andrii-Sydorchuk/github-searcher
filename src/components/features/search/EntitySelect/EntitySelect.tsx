@@ -11,7 +11,11 @@ export default function EntitySelect({
   onEntityTypeChange,
 }: EntitySelectProps) {
   return (
-    <div className={styles.selectWrapper}>
+    <div
+      className={styles.selectWrapper}
+      role="group"
+      aria-label="Search entity type"
+    >
       <select
         className={styles.select}
         value={entityType}
